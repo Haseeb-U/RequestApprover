@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="user-info">
+        Loading...
+    </div>
+    <script>
+        async function fetchUser() {
+            const res = await fetch('/api/user/me');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.user) {
+                    document.getElementById('user-info').innerHTML = `
+                        <p>Welcome, <b>${data.user.displayName || data.user.name || data.user.email}</b>!</p>
+                        <a href="/auth/logout">Logout</a>
+                    `;
+                } else {
+                    document.getElementById('user-info').innerHTML = `
+                        <a href="/auth/login">Login with Microsoft</a>
+                    `;
+                }
+            } else {
+                document.getElementById('user-info').innerHTML = `
+                    <a href="/auth/login">Login with Microsoft</a>
+                `;
+            }
+        }
+        fetchUser();
+    </script>
+</body>
+</html>
