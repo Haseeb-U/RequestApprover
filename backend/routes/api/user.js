@@ -2,9 +2,25 @@ const express = require('express');
 const app = express.Router();
 const { check, validationResult } = require('express-validator');
 
-app.get('/me', (req, res) => {
+app.get('/me', async (req, res) => {
   if (req.isAuthenticated && req.isAuthenticated()) {
-    res.json({ user: req.user });
+    const { name, email, id } = req.user || {};
+    let isAdmin = false;
+
+    try {
+      if (req.locals && req.locals.db) {
+        const [rows] = await req.locals.db.query(
+          'SELECT 1 FROM admins WHERE user_id = ? LIMIT 1',
+          [id]
+        );
+        isAdmin = rows.length > 0;
+      }
+    } catch (err) {
+      console.error('Error checking admin status:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    res.json({ user: { name, email, isAdmin } });
   } else {
     res.json({ user: null });
   }

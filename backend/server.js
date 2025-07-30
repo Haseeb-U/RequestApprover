@@ -5,6 +5,7 @@ const session = require('express-session');
 const passport = require('./routes/api/azureStrategy');
 const authRoutes = require('./routes/api/auth');
 const userRoutes = require('./routes/api/user');
+const requestsRoutes = require('./routes/api/requests');
 const path = require('path');
 const { initDatabase } = require('./DB/mysql');
 
@@ -34,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRoutes); // 👈 Routes are modular
 
 app.use('/api/user', userRoutes); // 👈 Routes are modular
+
+app.use('/api/requests', requestsRoutes); // 👈 Routes are modular
 
 const port = process.env.PORT || 5000;
 
