@@ -4,7 +4,54 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 1. Where to Put Your Frontend Files
+## 1. Environment Setup (`.env` file) and MySQL Database Requirement
+
+Before running the backend server, you **must** set up a `.env` file and have access to a live MySQL database.
+
+### Where to put the `.env` file
+
+- Place the `.env` file in the `backend` folder (same location as `server.js`).
+
+### What to put in the `.env` file
+
+Add the following variables and fill in your values:
+
+```
+# MySQL Database
+MYSQL_HOST=your-mysql-host
+MYSQL_USER=your-mysql-username
+MYSQL_PASSWORD=your-mysql-password
+MYSQL_DB_NAME=CBLRequestApproverDB
+
+# Azure AD Authentication
+AZURE_TENANT_ID=your-tenant-id
+AZURE_CLIENT_ID=your-client-id
+AZURE_CLIENT_SECRET=your-client-secret
+AZURE_REDIRECT_URI=http://localhost:5000/auth/callback
+
+# Session Secret
+SESSION_SECRET=your-session-secret
+
+# SMTP (for email notifications)
+SMTP_HOST=smtp.yourprovider.com
+SMTP_PORT=587
+SMTP_USER=your-smtp-username
+SMTP_PASS=your-smtp-password
+SMTP_FROM="CBL Request Approver <no-reply@cbl.com>"
+
+# Website URL
+WEBSITE_URL=http://localhost:5000
+```
+
+> **Note:**  
+> - You must have a live MySQL server running and accessible with the credentials above.
+> - The backend will automatically create the required database and tables if they do not exist.
+> - Azure AD credentials are required for authentication.
+> - SMTP settings are needed for email notifications.
+
+---
+
+## 2. Where to Put Your Frontend Files
 
 - Place all your HTML, CSS, and JavaScript files in the `public` folder:
   ```
@@ -20,7 +67,7 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 2. How to Start the Backend Server
+## 3. How to Start the Backend Server
 
 1. Make sure you have Node.js installed.
 2. Open a terminal in the `backend` folder.
@@ -34,7 +81,7 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 3. How to Access Your Frontend
+## 4. How to Access Your Frontend
 
 - Open your browser and go to:  
   `http://localhost:5000/`
@@ -42,7 +89,7 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 4. Backend API Routes
+## 5. Backend API Routes
 
 ### Authentication
 
@@ -228,7 +275,7 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 5. Example: Show User Info and Login/Logout
+## 6. Example: Show User Info and Login/Logout
 
 ```html
 <div id="user-info">Loading...</div>
@@ -255,7 +302,7 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 6. Notes
+## 7. Notes
 
 - All authentication is handled by Microsoft Azure AD.
 - User sessions are managed automatically by the backend.
@@ -264,6 +311,6 @@ Welcome! This guide will help you set up your frontend and connect it to the bac
 
 ---
 
-## 7. Need Help?
+## 8. Need Help?
 
-If you have any questions or issues, contact the backend developer for support.
+If you have any questions or issues, contact the backend developer for
